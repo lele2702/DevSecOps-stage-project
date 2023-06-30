@@ -1,0 +1,109 @@
+pipeline {
+
+  agent any
+
+  parameters {
+    booleanParam(name: 'destroy', defaultValue: false, description: 'Destroy Terraform build?')
+    booleanParam(name: 'noSecurity', defaultValue : false, description: 'Skip terrascan scan?')
+    booleanParam(name: 'apply', defaultValue : false, description: 'Apply terraform config?')
+  }
+
+  environment {
+        IP_ADDRESS = "52.166.129.78"
+
+    }
+
+  stages {
+
+    stage('Azure Connection Test') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'AzureServicePrincipal', usernameVariable: 'AZURE_USERNAME', passwordVariable: 'AZURE_PASSWORD')]) {     
+          script {      
+            // Eseguo le azioni di connessione ad Azure utilizzando le credenziali            
+            sh "az login --username \$AZURE_USERNAME --password \$AZURE_PASSWORD"
+            sh "az account show"    
+          }     
+        }
+      }
+    }
+
+    stage('Terraform Init'){
+      steps {
+        script {
+          withCredentials([string(credentialsId: 'AzureStorageAccessKey', variable: 'AZURE_ACCESS_KEY')]) {
+          sh 'terraform init -upgrade -backend-config="access_key=${AZURE_ACCESS_KEY}"'
+          }
+        }
+      }
+    }
+
+    stage('Valutazione risultati Terrascan') {
+      when {
+        not {
+          equals expected: true, actual: params.noSecurity
+        }
+      }
+
+      steps {
+        // Eseguo Terrascan scan e salvo l'output in una variabile
+        script {
+          sh "terrascan init"
+          def terrascanOutput = sh(returnStdout: true, script: 'terrascan scan -t azure -i terraform')
+          echo "Output di Terrascan:\n${terrascanOutput}"
+
+          // Analizzo l'output di Terrascan
+          def lowCount = terrascanOutput.size() > 0 && terrascanOutput[0].size() > 1 ? Integer.parseInt(terrascanOutput[0][1]) : 0
+
+          def mediumCount = terrascanOutput.size() > 0 && terrascanOutput[0].size() > 1 ? Integer.parseInt(terrascanOutput[0][1]) : 0
+          def highCount = terrascanOutput.size() > 0 && terrascanOutput[0].size() > 1 ? Integer.parseInt(terrascanOutput[0][1]) : 0
+
+          // Stampo i conteggi per ciascuna criticità
+          echo "Low: ${lowCount}"
+          echo "Medium: ${mediumCount}"
+          echo "High: ${highCount}"
+
+          // Decido se continuare con la terraform plan in base ai conteggi
+          if (highCount == 0 && mediumCount == 0) {
+            echo "Non sono state rilevate vulnerabilità critiche o un numero eccessivo di vulnerabilità medie. Continua con la terraform plan."
+          }
+        }
+      }
+    }
+
+    stage('Validate, Plan, Apply') {
+      when {
+        not {
+          equals expected: false, actual: params.apply
+        }
+      }
+
+      steps {     
+          script {
+            sh "terraform validate"
+            sh "terraform plan -out tfplan"
+            sh "terraform apply --auto-approve tfplan"
+          }
+      }
+    }
+
+    stage('Vulnerability assessment'){
+      steps {
+        script {
+          sh "nmap -sV -Pn --script vulscan $IP_ADDRESS"
+        }
+      }
+    }
+
+    stage('Destroy') {
+      when {
+        equals expected: true, actual: params.destroy
+      }
+        
+      steps {
+        script{
+          sh "terraform destroy --auto-approve"
+        }
+      }
+    }
+  }
+}
