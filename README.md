@@ -35,9 +35,8 @@ Come piattaforma cloud ho utilizzato Azure.
 Come si può notare dal diagramma la struttura della pipeline di rilascio è molto semplice:
 - viene prelevato il codice Terraform dalla repository, viene valutato, controllato tramite terrascan e se passa il quality gate viene rilasciata l'infrastruttura su Azure
 
-## Pipeline
-![image](https://github.com/lele2702/DevSecOps-stage-project/assets/85575751/11ddca4b-8333-4342-acc1-106a2d0ac3d0)
-
+## Pipeline IAC
+![image](https://github.com/lele2702/DevSecOps-stage-project/assets/85575751/a152c709-bf2b-4cfa-bb4d-df828bc86a38)
 
 ## Sicurezza IAC
 
@@ -60,5 +59,15 @@ Il servizio SSH in esecuzione sulla porta 22 viene identificato come OpenSSH 7.4
 È STATA eseguitA ANCHE una scansione di vulnerabilità aggiuntiva utilizzando i database VulDB, MITRE CVE, SecurityFocus, IBM X-Force e Exploit-DB.
 
 I risultati della scansione delle vulnerabilità indicano varie vulnerabilità associate a OpenSSH, tra cui vulnerabilità di denial-of-service, vulnerabilità di bypass della sicurezza, vulnerabilità di esecuzione remota di codice, vulnerabilità di divulgazione delle informazioni, vulnerabilità di escalation dei privilegi e altre. Ogni vulnerabilità è identificata dal suo numero CVE (Common Vulnerabilities and Exposures).
+
+
+## Monitoring IAC
+
+![image](https://github.com/lele2702/DevSecOps-stage-project/assets/85575751/568de994-d103-46f6-9ab6-e8f79984d8bf)
+
+![image](https://github.com/lele2702/DevSecOps-stage-project/assets/85575751/311c5467-e28a-40f3-aa8b-988fbcd7943e)
+
+Come si può vedere dall'immagine precedente per il monitoring ho deciso di fare la deploy di Prometheus e Grafana sul cluster in un namespace separato.
+
 
 
