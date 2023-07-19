@@ -26,6 +26,10 @@ Le tecnologie utilizzate in questo progetto sono svariate:
 - Sonarqube per i controlli statici e OWASP ZAP per i controlli dinamici sul codice
 - Terrascan per rilevare le conformità e le violazioni della sicurezza in tutta l'infrastruttura come codice
 
+
+## Pipeline IAC
+![image](https://github.com/lele2702/DevSecOps-stage-project/assets/85575751/a152c709-bf2b-4cfa-bb4d-df828bc86a38)
+
 Come piattaforma cloud ho utilizzato Azure.
 
 ![Diagramma senza titolo-Pagina-3 (1)](https://github.com/lele2702/DevSecOps-stage-project/assets/85575751/5a12c6ee-3f7f-437b-a177-46dc1968ff2a)
