@@ -30,7 +30,7 @@ Le tecnologie utilizzate durante lo sviluppo sono svariate:
 ## Pipeline IAC
 ![image](https://github.com/lele2702/DevSecOps-stage-project/assets/85575751/a152c709-bf2b-4cfa-bb4d-df828bc86a38)
 
-Come piattaforma cloud ho utilizzato Azure.
+La piattaforma cloud utilizzata è Azure di Microsoft.
 
 Come si può notare dal diagramma la struttura della pipeline di rilascio è molto semplice:
 - viene prelevato il codice Terraform dalla repository, viene valutato, controllato tramite terrascan e se passa il quality gate viene rilasciata l'infrastruttura su Azure
