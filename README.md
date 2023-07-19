@@ -23,7 +23,7 @@ Le tecnologie utilizzate in questo progetto sono svariate:
 - Jenkins per l'automazione
 - Trivy per l’analisi sui file Docker e sulle immagini che compongono l’applicazione
 - Nmap per il vulnerability assessment dell'infrastruttura
-- Checkmarx per i controlli statici e dinamici sul codice
+- Sonarqube per i controlli statici e OWASP ZAP per i controlli dinamici sul codice
 - Terrascan per rilevare le conformità e le violazioni della sicurezza in tutta l'infrastruttura come codice
 
 Come piattaforma cloud ho utilizzato Azure.
