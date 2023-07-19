@@ -12,7 +12,7 @@ Questo è il progetto relativo al mio tirocinio svolto in ambito Dev-Sec-Ops per
 
 ## Tecnologie utilizzate
 
-Le tecnologie utilizzate in questo progetto sono svariate:
+Le tecnologie utilizzate durante lo sviluppo sono svariate:
 - VMware e virtualbox per la creazione delle vm in locale
 - sistema operativo di tutte le virtual machine CentOs 7
 - GitLab per la repository relativa all'IAC
