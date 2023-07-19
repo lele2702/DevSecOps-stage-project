@@ -53,7 +53,7 @@ Viene mostrata solo una porta aperta: la porta 22, associata al servizio SSH (Se
 
 Il servizio SSH in esecuzione sulla porta 22 viene identificato come OpenSSH 7.4 e utilizza la versione del protocollo 2.0.
 
-È STATA eseguitA ANCHE una scansione di vulnerabilità aggiuntiva utilizzando i database VulDB, MITRE CVE, SecurityFocus, IBM X-Force e Exploit-DB.
+È stata eseguita anche una scansione di vulnerabilità aggiuntiva utilizzando i database VulDB, MITRE CVE, SecurityFocus, IBM X-Force e Exploit-DB.
 
 I risultati della scansione delle vulnerabilità indicano varie vulnerabilità associate a OpenSSH, tra cui vulnerabilità di denial-of-service, vulnerabilità di bypass della sicurezza, vulnerabilità di esecuzione remota di codice, vulnerabilità di divulgazione delle informazioni, vulnerabilità di escalation dei privilegi e altre. Ogni vulnerabilità è identificata dal suo numero CVE (Common Vulnerabilities and Exposures).
 
